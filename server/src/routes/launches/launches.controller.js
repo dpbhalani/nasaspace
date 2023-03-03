@@ -41,7 +41,7 @@ function httpAbortLaunch(req ,res){
     }
 
     const aborted = abortLaunchById(launchId);
-    console.log(aborted);
+    //console.log(aborted);
     return res.status(200).json(aborted);
 }
 
