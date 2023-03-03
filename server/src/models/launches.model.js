@@ -70,7 +70,7 @@ async function saveLaunch(launch){
     if(!planet){
         throw new Error("The selected planet is not found please select a valid planet");
     }
-    await launchesDatabase.updateOne({
+    await launchesDatabase.findOneAndUpdate({
         flightNumber: launch.flightNumber,
     },launch,{
         upsert:true,
