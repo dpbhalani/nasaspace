@@ -18,8 +18,10 @@ saveLaunch(launch);
 
 launches.set(launch.flightNumber, launch);
 
-function getAllLaunches() {
-    return Array.from(launches.values())
+ function getAllLaunches() {
+    return  launchesDatabase.find({},{
+        '_id':0 ,'__v':0,
+    })
 }
 
 function addNewLaunch(launch) {
