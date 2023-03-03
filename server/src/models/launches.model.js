@@ -39,8 +39,10 @@ launches.set(launch.flightNumber, launch);
 //     );
 // }
 
-function existLaunchWithId(launchId){
-   return launches.has(launchId);
+async function existLaunchWithId(launchId){
+   return await launchesDatabase.findOne({
+    flightNumber : launchId,
+   })
 }
 
 async function getLatestFlightNumber(){
@@ -55,11 +57,19 @@ async function getLatestFlightNumber(){
     return latestLaunch.flightNumber;
 }
 
-function abortLaunchById(launchId){
-   const aborted = launches.get(launchId);
-   aborted.upcoming = false;
-   aborted.success = false;
-   return aborted;
+async function abortLaunchById(launchId){
+    const aborted = await launchesDatabase.updateOne({
+        flightNumber : launchId,
+    },{
+        upcoming : false,
+        success : false,
+    });
+
+    return aborted === 1 && aborted.nModified === 1; 
+//    const aborted = launches.get(launchId);
+//    aborted.upcoming = false;
+//    aborted.success = false;
+//    return aborted;
 }
 
 async function saveLaunch(launch){
