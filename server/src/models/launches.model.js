@@ -42,7 +42,7 @@ launches.set(launch.flightNumber, launch);
 async function existLaunchWithId(launchId){
    return await launchesDatabase.findOne({
     flightNumber : launchId,
-   })
+   });
 }
 
 async function getLatestFlightNumber(){
@@ -65,7 +65,7 @@ async function abortLaunchById(launchId){
         success : false,
     });
 
-    return aborted === 1 && aborted.nModified === 1; 
+    return aborted.ok === 1 && aborted.nModified === 1; 
 //    const aborted = launches.get(launchId);
 //    aborted.upcoming = false;
 //    aborted.success = false;
