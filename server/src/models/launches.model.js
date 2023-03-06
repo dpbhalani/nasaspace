@@ -11,7 +11,7 @@ let launch = {
     rocket: "Explore IS1",
     launchDate: new Date('December 27,2025'),
     target: "Kepler-442 b",
-    customer: ["ZTM", "NASA"],
+    customers: ["ZTM", "NASA"],
     upcoming: true,
     success: true,
 }
@@ -31,7 +31,7 @@ launches.set(launch.flightNumber, launch);
 //     launches.set(
 //         latestFlightNumber,
 //         Object.assign(launch, {
-//             customer: ["Zero to Mastery", "NASA"],
+//             customers: ["Zero to Mastery", "NASA"],
 //             upcoming: true,
 //             success: true,
 //             flightNumber: latestFlightNumber,
@@ -91,7 +91,7 @@ async function scheduleNewLaunch(launch){
     const newFlightNumber = await getLatestFlightNumber() + 1;
 
     const newLaunch = Object.assign(launch , {
-        customer: ["Zero to Mastery", "NASA"],
+        customers: ["Zero to Mastery", "NASA"],
         upcoming: true,
         success: true,
         flightNumber: newFlightNumber,
