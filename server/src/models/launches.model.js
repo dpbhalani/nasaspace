@@ -99,10 +99,11 @@ launches.set(launch.flightNumber, launch);
 
 
 
- function getAllLaunches() {
+ function getAllLaunches(skip,limit) {
     return  launchesDatabase.find({},{
-        '_id':0 ,'__v':0,
-    })
+        '_id':0 ,'__v':0,})
+        .skip(skip)
+        .limit(limit);
 }
 
 // function addNewLaunch(launch) {
