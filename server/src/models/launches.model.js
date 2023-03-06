@@ -1,5 +1,6 @@
 const axios = require("axios");
 const launchesDatabase = require('./launches.mongo');
+const { findOne } = require("./planets.mongo");
 const Planets = require('./planets.mongo');
 
 const launches = new Map();
@@ -19,8 +20,8 @@ let launch = {
     success: true, //success
 }
 
-async function loadLaunchData(){
-     console.log("loadlaunchdata is started...");
+async function populateLaunches(){
+    console.log("loadlaunchdata is started...");
      const response = await axios.post(SPACEX_API_URL, {
         query:{},
         options:{
@@ -41,7 +42,6 @@ async function loadLaunchData(){
             ]
         }
     });
-
     const launchDocs = response.data.docs;
 
     for (launchDoc of launchDocs){
@@ -62,6 +62,25 @@ async function loadLaunchData(){
         console.log(`${launch.flightNumber} ${launch.mission}`);
     }
 }
+
+async function loadLaunchData(){
+    const firstLaunch = await findLaunch({
+        flightNumber:1,
+        mission:"FalconSat",
+        rocket:"Falcon 1"
+    });
+    if(firstLaunch){
+        console.log("Launch is already exist in database......!");
+    }
+    else{
+        await populateLaunches();
+    }
+}
+
+async function findLaunch(filter){
+    return await launchesDatabase.findOne(filter);
+}
+
 
 saveLaunch(launch);
 
